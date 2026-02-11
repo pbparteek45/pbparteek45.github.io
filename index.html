@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.jpg" type="image/jpg" />
+
+    <title>Parteek Bansal - Software Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap");
+
+      @font-face {
+        font-family: "Departure Mono";
+        src:
+          url("DepartureMono-Regular.woff2") format("woff2"),
+          url("DepartureMono-Regular.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      .font-departure-mono {
+        font-family: "Departure Mono" !important;
+      }
+
+      .font-mono {
+        font-family: "Noto Sans Mono", monospace !important;
+      }
+
+      p,
+      p > span,
+      ul,
+      li,
+      p > a {
+        font-family: "Noto Serif", serif;
+        font-optical-sizing: auto;
+      }
+
+      .font-heading {
+        font-family: "Noto Sans Display", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 800;
+      }
+
+      * {
+        font-family: "Noto Sans", sans-serif;
+        font-optical-sizing: auto;
+      }
+
+      body {
+        background: #0a0a0a;
+        overflow-x: hidden;
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .slide-in-left {
+        opacity: 0;
+        transform: translateX(-50px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+
+      .slide-in-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .slide-in-right {
+        opacity: 0;
+        transform: translateX(50px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+
+      .slide-in-right.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .scale-in {
+        opacity: 0;
+        transform: scale(0.9);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+
+      .scale-in.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .gradient-text {
+        /* background: linear-gradient(135deg, #ff6b35 0%, #10b981 100%); */
+        background: linear-gradient(135deg, #ffa535 0%, #c301c6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .gradient-border {
+        position: relative;
+        background: #1a1a1a;
+        border-radius: 0.5rem;
+      }
+
+      .gradient-border::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 0.5rem;
+        padding: 2px;
+        background: linear-gradient(135deg, #ff6b35, #c301c6);
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+
+      .tech-badge {
+        transition: all 0.3s ease;
+      }
+
+      .tech-badge:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+      }
+
+      .project-card {
+        transition: all 0.3s ease;
+        background: #1a1a1a;
+        border: 1px solid #2a2a2a;
+      }
+
+      .project-card:hover {
+        border-color: #ff6b35;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+      }
+
+      .nav-link {
+        position: relative;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #ff6b35, #c301c6);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .typing-animation {
+        overflow: hidden;
+        border-right: 2px solid #ff6b35;
+        white-space: nowrap;
+        animation:
+          typing 3s steps(40, end),
+          blink 0.75s step-end infinite;
+      }
+
+      .stack-3d {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        perspective: 1000px;
+      }
+
+      .stack-layer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 1.5rem 2rem;
+        background: linear-gradient(145deg, #1f1f1f 0%, #151515 100%);
+        border: 2px solid #2a2a2a;
+        border-radius: 1rem;
+        width: 100%;
+        max-width: 220px;
+        position: relative;
+        margin-top: -8px;
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition-delay: var(--delay);
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+        box-shadow:
+          0 10px 20px rgba(0, 0, 0, 0.3),
+          0 6px 6px rgba(0, 0, 0, 0.2),
+          inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+          inset 0 2px 4px rgba(255, 255, 255, 0.05);
+      }
+
+      .stack-layer.visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      .stack-layer:first-child {
+        margin-top: 0;
+        z-index: 6;
+      }
+
+      .stack-layer:nth-child(2) {
+        z-index: 5;
+      }
+
+      .stack-layer:nth-child(3) {
+        z-index: 4;
+      }
+
+      .stack-layer:nth-child(4) {
+        z-index: 3;
+      }
+
+      .stack-layer:nth-child(5) {
+        z-index: 2;
+      }
+
+      .stack-layer:nth-child(6) {
+        z-index: 1;
+      }
+
+      .stack-layer::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        background: linear-gradient(135deg, #ff6b35, #10b981);
+        border-radius: 1rem;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: -1;
+      }
+
+      .stack-layer:hover {
+        transform: translateY(-15px) scale(1.05) rotateX(5deg);
+        border-color: transparent;
+        box-shadow:
+          0 20px 40px rgba(255, 107, 53, 0.4),
+          0 10px 20px rgba(16, 185, 129, 0.2),
+          inset 0 -2px 8px rgba(0, 0, 0, 0.4),
+          inset 0 2px 8px rgba(255, 255, 255, 0.1);
+        z-index: 10 !important;
+      }
+
+      .stack-layer:hover::before {
+        opacity: 1;
+      }
+
+      .stack-layer img,
+      .stack-layer svg {
+        transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+      }
+
+      .stack-layer:hover img,
+      .stack-layer:hover svg {
+        transform: scale(1.2) rotate(360deg);
+      }
+
+      .stack-layer span {
+        color: #e0e0e0;
+        font-weight: 600;
+        font-size: 0.875rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .project-card {
+        transition: all 0.3s ease;
+        background: #1a1a1a;
+        border: 1px solid #2a2a2a;
+      }
+
+      .project-card:hover {
+        border-color: #ff6b35;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      @keyframes blink {
+        50% {
+          border-color: transparent;
+        }
+      }
+
+      .glow {
+        text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+      }
+
+      .typewriter {
+        position: relative;
+      }
+
+      .typewriter::after {
+        content: "";
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 8px;
+        height: 1.2em;
+        background-color: #c301c6; /* green-500 */
+        animation: blink 0.8s steps(1) infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .coin-flip {
+        position: relative;
+        width: 320px;
+        height: 320px;
+        transform-style: preserve-3d;
+        transition: transform 0.8s;
+        animation: flip 6s infinite;
+      }
+
+      .coin-flip:hover {
+        transform: rotateY(180deg);
+        cursor: pointer;
+      }
+
+      .coin-flip img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .coin-flip .front {
+        transform: rotateY(0deg);
+      }
+
+      .coin-flip .back {
+        transform: rotateY(180deg);
+      }
+
+      @keyframes flip {
+        0%,
+        45% {
+          transform: rotateY(0deg);
+        }
+        50%,
+        95% {
+          transform: rotateY(180deg);
+        }
+        100% {
+          transform: rotateY(360deg);
+        }
+      }
+
+      /* Timeline Styles */
+      .timeline-container {
+        position: relative;
+        padding-left: 2rem;
+      }
+      .timeline-container::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background: linear-gradient(to bottom, #ff6b35, #c301c6, #2a2a2a);
+      }
+      .timeline-item {
+        position: relative;
+        margin-bottom: 3rem;
+      }
+      .timeline-dot {
+        position: absolute;
+        left: -2.45rem;
+        top: 0.5rem;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        background: #ff6b35;
+        border: 3px solid #0a0a0a;
+        box-shadow: 0 0 10px #ff6b35;
+      }
+    </style>
+  </head>
+  <body class="text-gray-100">
+    <!-- Navigation -->
+    <nav aria-hidden="true" class="hidden md:block fixed top-0 w-full bg-black bg-opacity-90 backdrop-blur-sm z-50 border-b border-gray-800">
+      <div class="max-w-6xl mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <div class="text-xl font-bold font-mono">
+            <span class="text-orange-500">&lt;</span>
+            <span class="gradient-text">PB</span>
+            <span class="text-orange-500">/&gt;</span>
+          </div>
+          <div class="flex gap-8">
+            <a href="#about" class="nav-link text-gray-300 hover:text-orange-500">About</a>
+            <a href="#experience" class="nav-link text-gray-300 hover:text-orange-500">Experience</a>
+            <a href="#projects" class="nav-link text-gray-300 hover:text-orange-500">Projects</a>
+            <a href="#skills" class="nav-link text-gray-300 hover:text-orange-500">Skills</a>
+            <a href="#contact" class="nav-link text-gray-300 hover:text-orange-500">Contact</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center px-6 pt-10 md:pt-20">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center gap-2 md:gap-12">
+          <div>
+            <!-- Profile Image with Coin Flip -->
+            <div class="fade-in flex-shrink-0">
+              <div class="relative group">
+                <div class="absolute -inset-1 rounded-full"></div>
+                <div class="relative coin-flip">
+                  <img src="profile.jpg" alt="Noel Young - Photo" class="front rounded-full object-cover border-4 border-gray-900" />
+                  <img src="profile-pxl.png" alt="Noel Young - Pixel Art" class="back rounded-full object-cover border-4 border-gray-900" />
+                </div>
+              </div>
+            </div>
+
+            <div class="w-full mt-4">
+              <div class="text-4xl md:text-5xl text-gray-200 text-center mb-4 mt-6 font-heading font-extralight">Parteek Bansal</div>
+              <div class="grid grid-cols-2 gap-0 w-72 m-auto text-center font-sans hidden md:block">
+                <span class="px-4 py-1 text-xs text-fuchsia-500">Problem Solving</span>
+                <span class="px-4 py-1 text-xs text-orange-500">Communication</span>
+                <span class="px-4 py-1 text-xs text-orange-600">Ownership</span>
+                <span class="px-4 py-1 text-xs text-fuchsia-600">Discipline</span>
+                <span class="px-4 py-1 text-xs text-orange-600">Pragmatic</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Content -->
+          <div class="fade-in text-center md:text-left">
+            <div class="text-gray-600 mb-4 font-mono">Welcome to my portfolio!</div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+              <span class="text-white font-heading"> <span class="font-mono block text-3xl gradient-text">"Results-focused"</span> Software Engineer</span>
+            </h1>
+            <div class="flex gap-4 justify-center md:justify-start mb-12 flex-wrap">
+              <span class="font-departure-mono px-4 py-2 bg-orange-500 bg-opacity-10 text-orange-500 rounded-lg border border-orange-500 border-opacity-30 w-150"> Php Laravel Developer </span>
+              <div class="px-4 py-2 pr-0 mr-4 w-72 bg-fuchsia-500 bg-opacity-10 text-fuchsia-500 rounded-lg border border-fuchsia-500 border-opacity-30">
+                <span id="role-badge" class="typewriter font-departure-mono"></span>
+              </div>
+            </div>
+            <div class="flex gap-4 justify-center md:justify-start mb-12 flex-wrap text-center">
+              <div class="is-uppercase p-0">
+                <p class="text-5xl md:text-6xl font-heading text-fuchsia-400 glow animate-pulse">+6</p>
+                <span>Years of experience</span>
+              </div>
+            </div>
+            <div class="flex gap-4 justify-center md:justify-start bottom flex-wrap">
+              <a href="#about" class="px-8 py-3 bg-gradient-to-r from-orange-500 to-fuchsia-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105"> View My Work </a>
+              <a href="Parteek_Bansal_resume_2026.pdf" download="Parteek_Bansal_resume_2026" target="_blank" class="flex items-center px-8 py-3 text-white box-border border border-default-medium font-semibold rounded-full hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Resume
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl font-heading mb-12 text-center fade-in">About Me</h2>
+        <div class="gradient-border p-8 fade-in">
+          <p class="text-gray-300 leading-relaxed text-lg">
+            <span class="text-2xl font-bold">R</span>esults-oriented, self-taught <span class="text-fuchsia-500 font-semibold">Php Developer</span> with <span class="text-orange-500 font-semibold">6 years of experience</span>
+            delivering robust, scalable systems across industries including e-commerce, telecommunications, logistics, and digital services.
+          </p>
+          <p class="text-gray-300 leading-relaxed text-lg mt-6"><span class="text-2xl font-bold">S</span>killed in PHP, Laravel, modern JavaScript frameworks, relational databases, and distributed architectures, with a track record of improving system performance, reliability, and developer workflows.</p>
+          <p class="text-gray-300 leading-relaxed text-lg mt-6"><span class="text-2xl font-bold">K</span>nown for taking ownership, <span class="text-fuchsia-500 font-semibold">leading projects end-to-end</span>, collaborating effectively with stakeholders, and mentoring teams to achieve high-quality engineering outcomes.</p>
+          <p class="text-gray-300 leading-relaxed text-lg mt-6"><span class="text-2xl font-bold">D</span>riven by continuous learning, optimisation, and clean software design, and <span class="text-orange-500 font-semibold">ready to contribute deep technical expertise and practical problem-solving</span> to a forward-thinking organization.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="py-20 px-6 bg-black bg-opacity-30">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-4xl font-heading mb-16 text-center fade-in">Professional Journey</h2>
+
+        <div class="timeline-container">
+          <div class="timeline-item fade-in">
+            <div class="timeline-dot"></div>
+            <div class="project-card p-6 rounded-xl">
+              <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                <div>
+                  <h3 class="text-2xl font-heading text-white">Senior Software Engineer</h3>
+                  <p class="text-orange-500 font-mono">Zapbuild Technologies | Mohali, Punjab</p>
+                </div>
+                <span class="text-fuchsia-400 font-mono text-sm mt-2 md:mt-0">July 2022 – Oct 2025</span>
+              </div>
+              <ul class="list-disc list-outside ml-5 text-gray-400 space-y-2">
+                <li>Architected and engineered a high-scale web application using Laravel,leveraging advanced OOP principles and Design Patterns to ensure code modularity, scalability, and improvement in execution efficiency.</li>
+                <li>Architected and maintained production-grade financial systems integrating Stripe (Payment Intents, Setup Intents) and PayPal REST APIs, including the development of complex subscription engines with automated billing cycles.</li>
+                <li>Optimized MySQL and PostgreSQL databases handling 15+ million records with advanced indexing strategies and query optimization, reducing query execution time and improving page load performance.</li>
+                <li>Developed an interactive code-editor interface within a Laravel-based LMS, leveraging CodeMirror to provide multi-language support and high-fidelity syntax highlighting for diverse programming environments.</li>
+                <li>Built and documented 50+ RESTful API endpoints using Laravel with JWT authentication, implementing rate limiting, and error handling to support high-traffic production environments with near-perfect uptime.</li>
+                <li>Led code reviews, established coding standards, and shared knowledge with other developers through sessions on Laravel best practices, improving overall code quality and reducing bugs.</li>
+                <li>Accelerated the delivery of a decoupled web application by engineering a robust Cakephp API, utilizing Model Associations to streamline data relationships and significantly reduce backend development time.</li>
+                <li>Orchestrated seamless software deployments to production servers, maintaining system integrity through continuous performance monitoring and root-cause analysis of technical issues.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in">
+            <div class="timeline-dot"></div>
+            <div class="project-card p-6 rounded-xl">
+              <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                <div>
+                  <h3 class="text-2xl font-heading text-white">Software Engineer</h3>
+                  <p class="text-orange-500 font-mono">Netqom Software | Mohali, Punjab</p>
+                </div>
+                <span class="text-fuchsia-400 font-mono text-sm mt-2 md:mt-0">May 2020 – July 2022</span>
+              </div>
+              <ul class="list-disc list-outside ml-5 text-gray-400 space-y-2">
+                <li>Engineered a custom location-search interface using OpenStreetMap and JavaScript, successfully replacing Google Autocomplete with an open-source alternative to provide seamless, cost-effective address suggestions.</li>
+                <li>Architected a high-concurrency real-time chat system using Laravel WebSocket’s, implementing asynchronous event broadcasting to deliver a seamless, low-latency communication experience.</li>
+                <li>Engineered a custom Authorization within Laravel, utilizing Gates to decouple security logic from controllers and provide a centralized, maintainable permission management system.</li>
+                <li>Managed complex version control workflows using Git, implementing branching strategies (GitFlow) to facilitate seamless team collaboration and ensure the integrity of the production codebase.</li>
+                <li>Authored comprehensive technical documentation and interactive API schemas using Swagger, ensuring seamless knowledge transfer and reducing developer onboarding time for complex projects.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in">
+            <div class="timeline-dot"></div>
+            <div class="project-card p-6 rounded-xl border-dashed border-gray-700">
+              <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                <div>
+                  <h3 class="text-2xl font-heading text-white">Junior Software Engineer</h3>
+                  <p class="text-orange-500 font-mono">Talentelgia Technologies Pvt. Ltd. | Mohali, Punjab</p>
+                </div>
+                <span class="text-fuchsia-400 font-mono text-sm mt-2 md:mt-0">July 2018 – Feb 2020</span>
+              </div>
+              <ul class="list-disc list-outside ml-5 text-gray-400 space-y-2">
+                <li>Optimized application footprint by implementing custom-built search, filter, and pagination logic, replacing heavy third-party dependencies with lightweight Raw SQL queries and AJAX for a faster, more scalable user experience.</li>
+                <li>Developed a custom RBAC (Role-Based Access Control) system within a Laravel environment, leveraging middleware to streamline user redirection and enhance application security.</li>
+                <li>Developed and maintained automated testing protocols utilizing PHPUnit to verify RESTful API logic and Laravel Dusk for browser-based automation, guaranteeing high code coverage and reliability of critical business flows.</li>
+                <li>Dedicated to continuous professional development, consistently evaluating and adopting new tools and frameworks to streamline workflows and improve application performance.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-heading mb-12 text-center fade-in">Notable Projects</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Project 1 - Learning Management System -->
+          <div class="project-card rounded-lg p-6 scale-in overflow-hidden relative">
+            <h3 class="text-xl font-heading text-white">Learning Management System</h3>
+            <div class="text-orange-500 font-mono text-sm mt-1">Laravel, Ruby On Rails, Stripe</div>
+
+            <p class="text-gray-400 mt-2 line-clamp-3"><span class="text-2xl font-semibold">I</span>n this project , there are two roles Admin and End user. Admin can create various types of query and coding based questions with database languages such as Mysql, PostgreSQL, MicrosoftSQLServer and with python programming language. Admin can also create various courses which can be paid or free.</p>
+
+            <button onclick="openDialog('nintendo-payment-gateway-dialog')" class="pt-4 text-orange-500 hover:text-fuchsia-400 font-mono text-sm float-right">View full →</button>
+          </div>
+
+          <!-- Project 2 - Agent Activity Logs -->
+          <div class="project-card rounded-lg p-6 scale-in relative">
+            <h3 class="text-xl font-heading text-white">Agent Activity Logs</h3>
+            <div class="text-orange-500 font-mono text-sm mt-1">Laravel, PostgreSQL</div>
+
+            <p class="text-gray-400 mt-2 line-clamp-3"><span class="text-2xl font-semibold">H</span>andle 20 million records using laravel query builder to improve performance.</p>
+
+            <button onclick="openDialog('mf-dialog')" class="pt-4 text-orange-500 hover:text-fuchsia-400 font-mono text-sm float-right">View full →</button>
+          </div>
+
+          <!-- Project 2 - Asterisk Voip -->
+          <div class="project-card rounded-lg p-6 scale-in relative">
+            <h3 class="text-xl font-heading text-white">Market Place For Business</h3>
+            <div class="text-orange-500 font-mono text-sm mt-1">Laravel, MySql, OpenStreetMap, Leaflet</div>
+
+            <p class="text-gray-400 mt-2 line-clamp-3"><span class="text-2xl font-semibold">I</span>Integrate OpenStreetMap to manage cost and integrate openstreep map autocomplete api to show list of locations in search bar and used leaflet to show business location on map.</p>
+
+            <button onclick="openDialog('asterisk-VoIP-dialog')" class="pt-4 text-orange-500 hover:text-fuchsia-400 font-mono text-sm float-right">View full →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Models Section -->
+    <section>
+      <!-- Learning Management System -->
+      <div id="nintendo-payment-gateway-dialog" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden">
+        <div class="bg-gray-900 p-8 rounded-lg max-w-xl max-h-[80vh] overflow-y-auto">
+          <h3 class="text-2xl font-heading text-white">Learning Management System</h3>
+          <div class="text-orange-500 font-mono text-sm">Laravel, Ruby On Rails, Stripe</div>
+          <div class="flex flex-col gap-4 mt-4">
+            <p class="text-gray-300 leading-relaxed"><span class="text-2xl font-semibold">I</span>n this project , there are two roles admin and end user. Admin can create various types of query and coding based questions with database languages such as Mysql, PostgreSQL, MicrosoftSQLServer and with python programming language. Admin can also create various courses which indludes documents, videos, text and quiz which can be paid or free. Admin can also add premium coding problems questions.</p>
+            <p class="text-gray-300 leading-relaxed"><span class="text-2xl font-semibold">U</span>sers needs to register on the application and than they can learn by write and run query code and they will get real time output of their written code on a split screen, So the Users can write the code and can see the outptut at the same time. Users can enroll for various courses and coding problems on the platform.</p>
+            <p class="text-gray-300 leading-relaxed"><span class="text-2xl font-semibold">I</span>ntegrate CodeMirror to highlight the query text for multiple database languages and for programming languages like python.</p>
+            <h3 class="text-xl font-heading">Tech Used</h3>
+            <ul class="list-disc list-inside text-gray-300">
+              <li class="text-gray-300">Laravel</li>
+              <li class="text-gray-300">Ruby On Rails Api Integrations</li>
+              <li class="text-gray-300">Code Mirror</li>
+              <li class="text-gray-300">Stripe</li>
+              <li class="text-gray-300">MySQL Database</li>
+              <li class="text-gray-300">Laravel Mix</li>
+            </ul>
+            <div>
+              <button onclick="closeDialog('nintendo-payment-gateway-dialog')" class="mt-4 text-orange-500 hover:text-fuchsia-400 font-mono rounded-lg border border-orange-500 hover:border-fuchsia-500 py-2 px-4 float-right">Close ✕</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Agent Activity -->
+      <div id="mf-dialog" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden">
+        <div class="bg-gray-900 p-8 rounded-lg max-w-xl max-h-[80vh] overflow-y-auto">
+          <h3 class="text-2xl font-heading text-white">Agent Activity Logs</h3>
+          <div class="text-orange-500 font-mono text-sm">Laravel, PostgreSQL</div>
+          <div class="flex flex-col gap-4 mt-4">
+            <p class="text-gray-300 leading-relaxed"><span class="text-2xl font-semibold">D</span>esigned and implemented Filters to generate reports for multiple roles.</p>
+            <p class="text-gray-300 leading-relaxed"><span class="text-2xl font-semibold">H</span>andle 20 million records using laravel query builder to improve performance</p>
+            <p class="text-gray-300 leading-relaxed"><span class="text-2xl font-semibold">H</span>andle multiple roles for admin, manager and agents authorization their permission through laravel gates</p>
+            <h3 class="text-xl font-heading">Tech Used</h3>
+            <ul class="list-disc list-inside text-gray-300">
+              <li class="text-gray-300">PHP & Laravel</li>
+              <li class="text-gray-300">PostgreSQL Database</li>
+              <li class="text-gray-300">Linux Server Deployments</li>
+            </ul>
+            <div>
+              <button onclick="closeDialog('mf-dialog')" class="mt-4 text-orange-500 hover:text-fuchsia-400 font-mono rounded-lg border border-orange-500 hover:border-fuchsia-500 py-2 px-4 float-right">Close ✕</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Market Place for business -->
+      <div id="asterisk-VoIP-dialog" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden">
+        <div class="bg-gray-900 p-8 rounded-lg max-w-xl max-h-[80vh] overflow-y-auto">
+          <h3 class="text-2xl font-heading text-white">Market Place For Business</h3>
+          <div class="text-orange-500 font-mono text-sm">Laravel, MySql, OpenStreetMap, Leaflet</div>
+          <div class="flex flex-col gap-4 mt-4">
+            <p class="text-gray-300 leading-relaxed"><span class="text-2xl font-semibold">D</span>esigned and built to register various businesses such as Hair Saloons, Restaurant based on their location. Business can get to the top of search list by paying a small fee.</p>
+            <p class="text-gray-300 leading-relaxed"><span class="text-2xl font-semibold">E</span>nd user can search these services based on its current location and can book appointments as well.</p>
+            <p class="text-gray-300 leading-relaxed"><span class="text-2xl font-semibold">I</span>Integrate OpenStreetMap to manage cost and integrate openstreep map autocomplete api to show list of locations in search bar and used leaflet to show business location on map.</p>
+            <h3 class="text-xl font-heading">Tech Used</h3>
+            <ul class="list-disc list-inside text-gray-300">
+              <li class="text-gray-300">Laravel Backend</li>
+              <li class="text-gray-300">OpenStreetMap</li>
+              <li class="text-gray-300">MySQL Database</li>
+              <li class="text-gray-300">Linux Server Deployment</li>
+            </ul>
+            <div>
+              <button onclick="closeDialog('asterisk-VoIP-dialog')" class="mt-4 text-orange-500 hover:text-fuchsia-400 font-mono rounded-lg border border-orange-500 hover:border-fuchsia-500 py-2 px-4 float-right">Close ✕</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-6 bg-black bg-opacity-50">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-heading mb-12 text-center fade-in">Skills</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Backend -->
+          <div class="slide-in-left">
+            <h3 class="text-2xl font-semibold mb-6 text-gray-500 font-mono">Backend</h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-indigo-500 bg-opacity-10 text-indigo-500 rounded-lg border border-indigo-500 border-opacity-30 font-mono">
+                <img src="https://cdn.simpleicons.org/php?viewbox=auto&size=20" alt="PHP" class="" />
+              </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-red-500 bg-opacity-10 text-red-500 rounded-lg border border-red-500 border-opacity-30 font-mono">
+                <img src="https://cdn.simpleicons.org/laravel?viewbox=auto&size=20" alt="Laravel" class="" />
+                Laravel
+              </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-indigo-500 bg-opacity-10 text-indigo-500 rounded-lg border border-indigo-500 border-opacity-30 font-mono">
+                <img src="https://cdn.simpleicons.org/cakephp?viewbox=auto&size=20" alt="Cakephp" class="" />
+                Cakephp
+              </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-gray-100 bg-opacity-10 text-white rounded-lg border border-gray-500 border-opacity-30 font-mono">
+                <img src="https://cdn.simpleicons.org/rubyonrails?viewbox=auto&size=20" alt="rubyonrails" class="" />
+                Ruby on Rails
+              </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-orange-500 bg-opacity-10 text-orange-500 rounded-lg border border-orange-500 border-opacity-30 font-mono">
+                <img src="https://cdn.simpleicons.org/mysql?viewbox=auto&size=20" alt="MySQL" class="" />
+              </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-blue-500 bg-opacity-10 text-blue-500 rounded-lg border border-blue-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/postgresql?viewbox=auto&size=20" alt="PostgreSQL" class="" />PostgreSQL </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-red-500 bg-opacity-10 text-red-500 rounded-lg border border-red-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/redis?viewbox=auto&size=20" alt="Redis" class="" />Redis </span>
+            </div>
+          </div>
+
+          <!-- Frontend -->
+          <div class="slide-in-right">
+            <h3 class="text-2xl font-semibold mb-6 text-gray-500 font-mono">Frontend</h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-orange-500 bg-opacity-10 text-orange-500 rounded-lg border border-orange-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/HTML5?viewbox=auto&size=20" alt="HTML5" class="" />HTML5 </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-fuchsia-500 bg-opacity-10 text-fuchsia-500 rounded-lg border border-fuchsia-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/css?viewbox=auto&size=20" alt="CSS" class="" />CSS </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-fuchsia-500 bg-opacity-10 text-fuchsia-500 rounded-lg border border-fuchsia-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/bootstrap?viewbox=auto&size=20" alt="Bootstrap" class="" />Bootstrap</span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-yellow-500 bg-opacity-10 text-yellow-500 rounded-lg border border-yellow-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/javaScript?viewbox=auto&size=20" alt="JavaScript" class="" />JavaScript </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-yellow-500 bg-opacity-10 text-yellow-500 rounded-lg border border-yellow-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/jquery?viewbox=auto&size=20" alt="Jquery" class="" />Jquery </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-green-500 bg-opacity-10 text-green-500 rounded-lg border border-green-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/codemirror?viewbox=auto&size=20" alt="CodeMirror" class="" />Code Mirror</span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-cyan-500 bg-opacity-10 text-cyan-500 rounded-lg border border-cyan-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/leaflet?viewbox=auto&size=20" alt="Leaflet" class="" />LeftLet </span>
+            </div>
+          </div>
+
+          <!-- DevOps & Tools -->
+          <div class="slide-in-left">
+            <h3 class="text-2xl font-semibold mb-6 text-gray-500 font-mono">DevOps & Tools</h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-sky-500 bg-opacity-10 text-sky-500 rounded-lg border border-sky-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/docker?viewbox=auto&size=20" alt="Docker" class="" />Docker </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-red-500 bg-opacity-10 text-red-500 rounded-lg border border-red-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/Git?viewbox=auto&size=20" alt="Git" class="" />Git </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-black-500 bg-opacity-10 text-black-500 rounded-lg border border-black-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/Linux?viewbox=auto&size=20" alt="Linux" class="" />Linux </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-yellow-500 bg-opacity-10 text-yellow-500 rounded-lg border border-yellow-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/doctrine?viewbox=auto&size=20" alt="Doctrine" class="" />Doctrine </span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-yellow-500 bg-opacity-10 text-yellow-500 rounded-lg border border-yellow-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/postman?viewbox=auto&size=20" alt="Postman" class="" />Postman</span>
+              <span class="inline-flex items-center gap-2 rounded-lg tech-badge px-4 py-1 bg-gray-500 bg-opacity-10 text-gray-500 rounded-lg border border-gray-500 border-opacity-30 font-mono"> <img src="https://cdn.simpleicons.org/readthedocs?viewbox=auto&size=20" alt="Doctrine" class="" />Documentation </span>
+            </div>
+          </div>
+
+          <!-- Architecture -->
+          <div class="slide-in-right">
+            <h3 class="text-2xl font-semibold mb-6 text-gray-500 font-mono">Architecture & Patterns</h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="tech-badge px-4 py-1 bg-gray-700 bg-opacity-50 text-gray-300 rounded-lg border border-gray-600 font-mono">SOLID Principles</span>
+              <span class="tech-badge px-4 py-1 bg-gray-700 bg-opacity-50 text-gray-300 rounded-lg border border-gray-600 font-mono">Microservices</span>
+              <span class="tech-badge px-4 py-1 bg-gray-700 bg-opacity-50 text-gray-300 rounded-lg border border-gray-600 font-mono">RESTful Design</span>
+              <span class="tech-badge px-4 py-1 bg-gray-700 bg-opacity-50 text-gray-300 rounded-lg border border-gray-600 font-mono">TDD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6 bg-black bg-opacity-50">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl font-heading mb-8 fade-in">Get In Touch</h2>
+        <p class="text-gray-400 text-lg mb-12 fade-in">I'm always open to discussing new projects, opportunities, or technical collaborations.</p>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-8 mb-12 fade-in">
+          <a href="mailto:pbparteek45@gmail.com" class="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+            </svg>
+            Email
+          </a>
+
+          <a href="https://github.com/pbparteek45" target="_blank" rel="noopener" class="flex items-center gap-3 px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:scale-105">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+            GitHub
+          </a>
+
+          <a href="https://www.linkedin.com/in/pbparteek45/" target="_blank" rel="noopener" class="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-fuchsia-500 to-fuchsia-600 text-white rounded-lg hover:shadow-lg hover:shadow-fuchsia-500/50 transition-all duration-300 transform hover:scale-105">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"></path>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-gray-800">
+      <div class="max-w-6xl mx-auto text-center text-gray-500 font-mono">
+        <p class="mt-2 text-sm">© 2025 All rights reserved</p>
+      </div>
+    </footer>
+
+    <script>
+      // Scroll animation observer
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      // Observe all animated elements
+      document.querySelectorAll(".fade-in, .slide-in-left, .slide-in-right, .scale-in, .stack-layer").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Smooth scroll for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const el = document.getElementById("role-badge");
+
+        const base = "> Software";
+        const firstEnding = " Engineer";
+        const secondEnding = " Problem Solver";
+
+        let currentEnding = firstEnding;
+        let index = 0;
+        let deleting = false;
+
+        function randomDelay(base = 70, variance = 50) {
+          return base + Math.random() * variance;
+        }
+
+        function tick() {
+          const fullText = base + currentEnding;
+
+          if (!deleting) {
+            // Typing forward
+            el.textContent = fullText.slice(0, index + 1);
+            index++;
+
+            if (index === fullText.length) {
+              setTimeout(() => {
+                deleting = true;
+                tick();
+              }, 900);
+              return;
+            }
+
+            setTimeout(tick, randomDelay());
+          } else {
+            // Backspacing only the ending, leave base intact
+            const minimum = base.length;
+
+            el.textContent = fullText.slice(0, Math.max(index - 1, minimum));
+            index--;
+
+            if (index === minimum) {
+              // Switch ending
+              deleting = false;
+              currentEnding = currentEnding === firstEnding ? secondEnding : firstEnding;
+
+              setTimeout(tick, 500);
+              return;
+            }
+
+            setTimeout(tick, randomDelay(50, 30));
+          }
+        }
+
+        el.textContent = "";
+        tick();
+      });
+
+      // dialog
+      function openDialog(id) {
+        document.getElementById(id).classList.remove("hidden");
+      }
+
+      function closeDialog(id) {
+        document.getElementById(id).classList.add("hidden");
+      }
+    </script>
+  </body>
+</html>

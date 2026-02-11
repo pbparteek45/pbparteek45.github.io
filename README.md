@@ -1,2 +1,18 @@
-# parteekbansal.github.io
-PHP and Laravel developer with five years of hands-on experience, focused on building scalable web solutions and exploring automation with AI models. Skilled in remote collaboration and modern web technologies, with a keen interest in efficient coding practices, open-source tools, and personal finance app development.
+# Personal Portfolio 🔥
+> https://parteekbansal.github.io/
+
+:star: Star me on GitHub — it helps!
+
+
+## Sections 📚
+✔️ About\
+✔️ Experience\
+✔️ Projects\
+✔️ Skills \
+✔️ Contact Info
+
+
+## License
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+
+- **[MIT license](http://opensource.org/licenses/mit-license.php)**
